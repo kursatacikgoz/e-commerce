@@ -2,10 +2,10 @@
 
 include '../netting/baglan.php';
 
-$menusor=$db->prepare("SELECT * FROM menu where menu_id =:id");
+$menusor=$db->prepare("SELECT * FROM menu where menu_sef =:sef");
 
 $menusor->execute(array(
-  'id'=>0
+  'sef'=>$_GET('sef')
 ));
 
 $menucek=$menusor->fetch(PDO::FETCH_ASSOC);

@@ -5,6 +5,194 @@ session_start();
 include 'baglan.php';
 include '../production/fonksiyon.php';
 
+if (isset($_POST['kullanicikaydet'])) {
+
+	
+	echo $kullanici_adsoyad=htmlspecialchars($_POST['kullanici_adsoyad']); echo "<br>";
+	echo $kullanici_mail=htmlspecialchars($_POST['kullanici_mail']); echo "<br>";
+
+	echo $kullanici_passwordone=$_POST['kullanici_passwordone']; echo "<br>";
+	echo $kullanici_passwordtwo=$_POST['kullanici_passwordtwo']; echo "<br>";
+
+
+	if ($kullanici_passwordone==$kullanici_passwordtwo) {
+
+
+		if ($kullanici_passwordone>=6) {
+
+
+// Başlangıç
+
+			$kullanicisor=$db->prepare("select * from kullanici where kullanici_mail=:mail");
+			$kullanicisor->execute(array(
+				'mail' => $kullanici_mail
+			));
+
+			//dönen satır sayısını belirtir
+			$say=$kullanicisor->rowCount();
+
+
+
+			if ($say==0) {
+
+				//md5 fonksiyonu şifreyi md5 şifreli hale getirir.
+				$password=md5($kullanici_passwordone);
+
+				$kullanici_yetki=1;
+				$kullanici_durum=1;
+
+			//Kullanıcı kayıt işlemi yapılıyor...
+				$kullanicikaydet=$db->prepare("INSERT INTO kullanici SET
+					kullanici_adsoyad=:kullanici_adsoyad,
+					kullanici_mail=:kullanici_mail,
+					kullanici_password=:kullanici_password,
+					kullanici_yetki=:kullanici_yetki,
+					kullanici_durum=:kullanici_durum
+					");
+				$insert=$kullanicikaydet->execute(array(
+					'kullanici_adsoyad' => $kullanici_adsoyad,
+					'kullanici_mail' => $kullanici_mail,
+					'kullanici_password' => $password,
+					'kullanici_yetki' => $kullanici_yetki,
+					'kullanici_durum' => $kullanici_durum
+				));
+
+				if ($insert) {
+
+
+					header("Location:../../index.php?durum=loginbasarili");
+
+
+				//Header("Location:../production/genel-ayarlar.php?durum=ok");
+
+				} else {
+
+
+					header("Location:../../register.php?durum=basarisiz");
+				}
+
+			} else {
+
+				header("Location:../../register.php?durum=kayitlikullanici");
+
+
+
+			}
+
+
+
+
+		// Bitiş
+
+
+
+		} else {
+
+
+			header("Location:../../register.php?durum=");
+
+
+		}
+
+
+
+	} else {
+
+
+
+		header("Location:../../register.php?durum=eslesmeyensifre");
+	}
+	
+
+
+}
+
+
+
+
+if (isset($_POST['sliderkaydet'])) {
+
+
+	$uploads_dir = '../../dimg/slider';
+	@$tmp_name = $_FILES['slider_resimyol']["tmp_name"];
+	@$name = $_FILES['slider_resimyol']["name"];
+	//resmin isminin benzersiz olması
+	$benzersizsayi1=rand(20000,32000);
+	$benzersizsayi2=rand(20000,32000);
+	$benzersizsayi3=rand(20000,32000);
+	$benzersizsayi4=rand(20000,32000);	
+	$benzersizad=$benzersizsayi1.$benzersizsayi2.$benzersizsayi3.$benzersizsayi4;
+	$refimgyol=substr($uploads_dir, 6)."/".$benzersizad.$name;
+	@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizad$name");
+	
+
+
+	$kaydet=$db->prepare("INSERT INTO slider SET
+		slider_ad=:slider_ad,
+		slider_sira=:slider_sira,
+		slider_link=:slider_link,
+		slider_resimyol=:slider_resimyol
+		");
+	$insert=$kaydet->execute(array(
+		'slider_ad' => $_POST['slider_ad'],
+		'slider_sira' => $_POST['slider_sira'],
+		'slider_link' => $_POST['slider_link'],
+		'slider_resimyol' => $refimgyol
+	));
+
+	if ($insert) {
+
+		Header("Location:../production/slider.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/slider.php?durum=no");
+	}
+
+
+
+
+}
+
+
+if (isset($_POST['logoduzenle'])) {
+
+	
+
+	$uploads_dir = '../../dimg';
+
+	@$tmp_name = $_FILES['ayar_logo']["tmp_name"];
+	@$name = $_FILES['ayar_logo']["name"];
+
+	$benzersizsayi4=rand(20000,32000);
+	$refimgyol=substr($uploads_dir, 6)."/".$benzersizsayi4.$name;
+
+	@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizsayi4$name");
+
+	
+	$duzenle=$db->prepare("UPDATE ayar SET
+		ayar_logo=:logo
+		WHERE ayar_id=0");
+	$update=$duzenle->execute(array(
+		'logo' => $refimgyol
+	));
+
+
+
+	if ($update) {
+
+		$resimsilunlink=$_POST['eski_yol'];
+		unlink("../../$resimsilunlink");
+
+		Header("Location:../production/genel-ayar.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/genel-ayar.php?durum=no");
+	}
+
+}
+
 
 if(isset($_POST['admingiris'])){
 
@@ -32,6 +220,53 @@ if(isset($_POST['admingiris'])){
 		exit();
 	}
 }
+
+
+if (isset($_POST['kullanicigiris'])) {
+
+
+	
+	echo $kullanici_mail=htmlspecialchars($_POST['kullanici_mail']); 
+	echo $kullanici_password=md5($_POST['kullanici_password']); 
+
+
+
+	$kullanicisor=$db->prepare("select * from kullanici where kullanici_mail=:mail and kullanici_yetki=:yetki and kullanici_password=:password and kullanici_durum=:durum");
+	$kullanicisor->execute(array(
+		'mail' => $kullanici_mail,
+		'yetki' => 1,
+		'password' => $kullanici_password,
+		'durum' => 1
+	));
+
+
+
+	$say=$kullanicisor->rowCount();
+
+
+	if ($say==1) {
+
+		echo $_SESSION['userkullanici_mail']=$kullanici_mail;
+
+		header("Location:../../");
+		exit;
+		
+
+
+
+
+	} else {
+
+
+		header("Location:../../?durum=basarisizgiris");
+
+	}
+
+
+}
+
+
+
 
 
 if(isset($_POST['genelayarkaydet'])){
@@ -259,6 +494,25 @@ if($_GET['kullanicisil']=="ok"){
 
 }
 
+if($_GET['slidersil']=="ok"){
+
+
+	$sil=$db->prepare("DELETE from slider where slider_id=:id");
+
+
+	$kontrol=$sil->execute(array(
+
+		'id'=> $_GET['slider_id']
+	));
+
+	if($kontrol){
+		header("Location:../production/slider.php?sil=ok");
+	}else{
+		header("Location:../production/slider.php?sil=fail");
+	}
+
+}
+
 if($_GET['menusil']=="ok"){
 
 
@@ -302,7 +556,7 @@ if (isset($_POST['menuduzenle'])) {
 		'menu_sira' => $_POST['menu_sira'],
 		'menu_seourl' => $menu_seourl,
 		'menu_durum' => $_POST['menu_durum']
-		));
+	));
 
 
 	if ($update) {
@@ -348,6 +602,32 @@ if(isset($_POST['menukaydet'])){
 
 }
 
+if(isset($_POST['sliderduzenle'])){
 
+	$slider_id = $_POST['slider_id'];
+
+	$ayarkaydet=$db->prepare("UPDATE slider SET
+
+		slider_ad=:slider_ad,
+		slider_link=:slider_link,
+		slider_sira=:slider_sira,
+		slider_durum=:slider_durum
+		WHERE slider_id={$_POST['slider_id']}");
+
+	$update=$ayarkaydet->execute(array(
+
+		'slider_ad'=> $_POST['slider_ad'],
+		'slider_link'=> $_POST['slider_link'],
+		'slider_sira'=> $_POST['slider_sira'],
+		'slider_durum'=> $_POST['slider_durum']
+	));
+
+	if($update){
+		header("Location:../production/slider-duzenle.php?slider_id=$slider_id&durum=ok");
+	}else{
+		header("Location:../production/slider-duzenle.php?slider_id=$slider_id&durum=fail");
+	}
+
+}
 
 ?>

@@ -73,14 +73,6 @@ include 'header.php';
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">İçerik <span class="required">*</span>
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="first-name" name="hakkimizda_icerik" value="<?php echo $hakkimizdacek["hakkimizda_icerik"]; ?>" required="required" class="form-control col-md-7 col-xs-12">
-                </div>
-              </div>
-
               <!-- Ck başlangıç -->
 
               <div class="form-group">
