@@ -3,8 +3,8 @@
 include 'header.php'; 
 
 //Belirli veriyi seçme işlemi
-$menusor=$db->prepare("SELECT * FROM menu order by menu_sira ASC");
-$menusor->execute();
+$kategorisor=$db->prepare("SELECT * FROM kategori order by kategori_sira ASC");
+$kategorisor->execute();
 
 
 ?>
@@ -19,7 +19,7 @@ $menusor->execute();
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Menü Listeleme <small>,
+            <h2>Kategori Listeleme <small>,
 
               <?php 
 
@@ -41,7 +41,7 @@ $menusor->execute();
             <div class="clearfix"></div>
 
             <div align="right">
-              <a href="menu-ekle.php"><button class="btn btn-success btn-xs"> Menü Ekle </button></a>
+              <a href="kategori-ekle.php"><button class="btn btn-success btn-xs"> Kategori Ekle </button></a>
             </div>
 
           </div>
@@ -55,7 +55,6 @@ $menusor->execute();
                 <tr>
                   <th>Sıra</th>
                   <th>Ad</th>
-                  <th>Url</th>
                   <th>Sıra</th>
                   <th>Durum</th>
                   <th></th>
@@ -67,17 +66,16 @@ $menusor->execute();
 
                 <?php 
                 $say=0;
-                while($menucek=$menusor->fetch(PDO::FETCH_ASSOC)) { $say++; ?>
+                while($kategoricek=$kategorisor->fetch(PDO::FETCH_ASSOC)) { $say++; ?>
 
 
                   <tr>
                     <td width="30"><?php echo $say ?></td>
-                    <td><?php echo $menucek['menu_ad'] ?></td>
-                    <td><?php echo $menucek['menu_url'] ?></td>
-                    <td><?php echo $menucek['menu_sira'] ?></td>
+                    <td><?php echo $kategoricek['kategori_ad'] ?></td>
+                    <td><?php echo $kategoricek['kategori_sira'] ?></td>
                     <td><?php 
 
-                    if ($menucek['menu_durum']==1) {?>
+                    if ($kategoricek['kategori_durum']==1) {?>
 
                       <button class="btn btn-success btn-xs">Aktif</button>
 
@@ -94,8 +92,8 @@ $menusor->execute();
 
                     ?></td>
 
-                    <td><center><a href="menu-duzenle.php?menu_id=<?php echo $menucek['menu_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center></td>
-                    <td><center><a href="../netting/islem.php?menu_id=<?php echo $menucek['menu_id']; ?>&menusil=ok"><button class="btn btn-danger btn-xs">Sil</button></a></center></td>
+                    <td><center><a href="kategori-duzenle.php?kategori_id=<?php echo $kategoricek['kategori_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center></td>
+                    <td><center><a href="../netting/islem.php?kategori_id=<?php echo $kategoricek['kategori_id']; ?>&kategorisil=ok"><button class="btn btn-danger btn-xs">Sil</button></a></center></td>
                   </tr>
 
 
