@@ -1,12 +1,8 @@
 <?php 
-
 include 'header.php'; 
 
-//Belirli veriyi seçme işlemi
 $urunsor=$db->prepare("SELECT * FROM urun order by urun_id DESC");
 $urunsor->execute();
-
-
 ?>
 
 

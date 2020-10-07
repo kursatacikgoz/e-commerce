@@ -14,7 +14,7 @@
 		<ul>
 			<?php 
 			while($kategoricek=$kategorisor->fetch(PDO::FETCH_ASSOC)) {  ?>
-				<li><a href="category.htm"><?php echo $kategoricek['kategori_ad']; ?></a></li>
+				<li><a href="kategori-<?=seo($kategoricek["kategori_ad"]) ?>"><?php echo $kategoricek['kategori_ad']; ?></a></li>
 
 			<?php } ?>
 

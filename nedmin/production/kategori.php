@@ -1,12 +1,8 @@
 <?php 
-
 include 'header.php'; 
 
-//Belirli veriyi seçme işlemi
 $kategorisor=$db->prepare("SELECT * FROM kategori order by kategori_sira ASC");
 $kategorisor->execute();
-
-
 ?>
 
 
