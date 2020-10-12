@@ -707,7 +707,8 @@ if (isset($_POST['urunduzenle'])) {
 		urun_keyword=:urun_keyword,
 		urun_stok=:urun_stok,
 		urun_durum=:urun_durum,
-		urun_seourl=:urun_seourl
+		urun_seourl=:urun_seourl,
+		urun_onecikan=:urun_onecikan
 		WHERE urun_id={$_POST['urun_id']}");
 	$update=$kaydet->execute(array(
 		'kategori_id' => $_POST['kategori_id'],
@@ -718,7 +719,8 @@ if (isset($_POST['urunduzenle'])) {
 		'urun_keyword' => $_POST['urun_keyword'],
 		'urun_stok' => $_POST['urun_stok'],
 		'urun_durum' => $_POST['urun_durum'],
-		'urun_seourl' => $urun_seourl
+		'urun_seourl' => $urun_seourl,
+		'urun_onecikan' => $_POST['urun_onecikan']
 	));
 
 
@@ -813,5 +815,53 @@ if ($_GET['urunsil']=="ok") {
 
 }
 
+if(isset($_POST['yorumkaydet'])){
+
+	$yorum_seourl=seo($_POST['yorum_ad']);
+	$gelen_url=$_POST['gelen_url'];
+
+	$ayarekle=$db->prepare("INSERT into yorumlar SET
+		yorum_detay=:yorum_detay,
+		kullanici_id=:kullanici_id,
+		urun_id=:urun_id
+		");
+
+	$insert=$ayarekle->execute(array(
+		'yorum_detay'=> $_POST['yorum_detay'],
+		'kullanici_id'=> $_POST['kullanici_id'],
+		'urun_id'=> $_POST['urun_id']
+	));
+
+	if($insert){
+		Header("Location:$gelen_url?durum=ok");
+	}else{
+		Header("Location:$gelen_url?durum=fail");
+	}
+
+}
+
+
+if(isset($_POST['sepetekle'])){
+
+
+	$ayarekle=$db->prepare("INSERT INTO sepet SET
+		urun_adet=:urun_adet,
+		kullanici_id=:kullanici_id,
+		urun_id=:urun_id
+		");
+
+	$insert=$ayarekle->execute(array(
+		'urun_adet'=> $_POST['urun_adet'],
+		'kullanici_id'=> $_POST['kullanici_id'],
+		'urun_id'=> $_POST['urun_id']
+	));
+
+	if($insert){
+		Header("Location:../../sepet?durum=ok");
+	}else{
+		Header("Location:../../sepet?durum=fail");
+	}
+
+}
 
 ?>

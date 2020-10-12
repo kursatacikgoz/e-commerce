@@ -172,39 +172,26 @@ $uruncek=$urunsor->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-6 col-sm-6 col-xs-12">
              <select id="heard" class="form-control" name="urun_durum" required>
 
-
-
-                   <!-- Kısa İf Kulllanımı 
-
-                    <?php echo $uruncek['urun_durum'] == '1' ? 'selected=""' : ''; ?>
-
-                  -->
-
-
-
-
                   <option value="1" <?php echo $uruncek['urun_durum'] == '1' ? 'selected=""' : ''; ?>>Aktif</option>
 
 
 
                   <option value="0" <?php if ($uruncek['urun_durum']==0) { echo 'selected=""'; } ?>>Pasif</option>
-                  <!-- <?php 
 
-                   if ($uruncek['urun_durum']==0) {?>
+                 </select>
+               </div>
+             </div>
 
+             <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Ürün Öne Çıkarma <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+             <select id="heard" class="form-control" name="urun_onecikan" required>
 
-                   <option value="0">Pasif</option>
-                   <option value="1">Aktif</option>
+                  <option value="1" <?php echo $uruncek['urun_onecikan'] == '1' ? 'selected=""' : ''; ?>>Onay</option>
 
+                  <option value="0" <?php if ($uruncek['urun_onecikan']==0) { echo 'selected=""'; } ?>>Red</option>
 
-                   <?php } else {?>
-
-                   <option value="1">Aktif</option>
-                   <option value="0">Pasif</option>
-
-                   <?php  }
-
-                   ?> -->
 
 
                  </select>

@@ -64,7 +64,7 @@ if (isset($_GET['sef'])) {
 								<div class="pricetag on-sale"><div class="inner on-sale"><span class="onsale"><span class="oldprice"><?php echo $uruncek['urun_fiyat']*1.5; ?></span><?php echo $uruncek['urun_fiyat']; ?> TL</span></div></div>
 							</div>
 							<span class="smalltitle"><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a></span>
-							<span class="smalldesc">Item Kodu: <?php echo $uruncek['urun_id']; ?></span>
+							<span class="smalldesc">Ürün Kodu: <?php echo $uruncek['urun_id']; ?></span>
 						</div>
 					</div>
 

@@ -54,7 +54,7 @@ $urunsor->execute();
                   <th>Stok</th>
                   <th>Fiyat</th>
                   <th>Durum</th>
-                  <th></th>
+                  <th>Öne Çıkan</th>
                   <th></th>
                 </tr>
               </thead>
@@ -74,6 +74,25 @@ $urunsor->execute();
                     <td><?php 
 
                     if ($uruncek['urun_durum']==1) {?>
+
+                      <button class="btn btn-success btn-xs">Aktif</button>
+
+
+                    <?php }else{?>
+
+
+                      <button class="btn btn-danger btn-xs">Pasif</button>
+
+
+                    <?php }
+                    
+
+
+                    ?></td>
+
+                    <td><?php 
+
+                    if ($uruncek['urun_onecikan']==1) {?>
 
                       <button class="btn btn-success btn-xs">Aktif</button>
 
