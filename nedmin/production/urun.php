@@ -56,6 +56,7 @@ $urunsor->execute();
                   <th>Durum</th>
                   <th>Öne Çıkan</th>
                   <th></th>
+                  <th></th>
                 </tr>
               </thead>
 
@@ -94,13 +95,13 @@ $urunsor->execute();
 
                     if ($uruncek['urun_onecikan']==1) {?>
 
-                      <button class="btn btn-success btn-xs">Aktif</button>
+                      <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urun_one=0&urun_onecikan=ok"><button class="btn btn-success btn-xs">Aktif</button></a>
 
 
                     <?php }else{?>
 
 
-                      <button class="btn btn-danger btn-xs">Pasif</button>
+                      <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urun_one=1&urun_onecikan=ok"><button class="btn btn-danger btn-xs">Pasif</button></a>
 
 
                     <?php }

@@ -65,7 +65,8 @@ include 'header.php';
 						<td><?php echo $uruncek['urun_ad']; ?></td>
 						<td><?php echo $uruncek['urun_id']; ?></td>
 						<td><form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>" class="form-control quantity"></form></td>
-						<td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
+						<td>
+						</td>
 						<td><?php echo $uruncek['urun_fiyat']*$sepetcek['urun_adet']; ?> TL</td>
 					</tr>
 

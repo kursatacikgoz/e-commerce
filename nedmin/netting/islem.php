@@ -864,4 +864,69 @@ if(isset($_POST['sepetekle'])){
 
 }
 
+if ($_GET['urun_onecikan']=="ok") {
+
+	
+	$duzenle=$db->prepare("UPDATE urun SET
+		urun_onecikan=:urun_onecikan
+		WHERE urun_id={$_GET['urun_id']}");
+	$update=$duzenle->execute(array(
+		'urun_onecikan' => $_GET['urun_one']
+	));
+
+
+
+	if ($update) {
+
+		Header("Location:../production/urun.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/urun.php?durum=fail");
+	}
+
+}
+
+if ($_GET['yorum_onay']=="ok") {
+
+	
+	$duzenle=$db->prepare("UPDATE yorumlar SET
+		yorum_onay=:yorum_onay
+		WHERE yorum_id={$_GET['yorum_id']}");
+	$update=$duzenle->execute(array(
+		'yorum_onay' => $_GET['yorum_one']
+	));
+
+
+
+	if ($update) {
+
+		Header("Location:../production/yorum.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/yorum.php?durum=fail");
+	}
+
+}
+
+if($_GET['yorumsil']=="ok"){
+
+
+	$sil=$db->prepare("DELETE from yorumlar where yorum_id=:id");
+
+
+	$kontrol=$sil->execute(array(
+
+		'id'=> $_GET['yorum_id']
+	));
+
+	if($kontrol){
+		header("Location:../production/yorum.php?sil=ok");
+	}else{
+		header("Location:../production/yorum.php?sil=fail");
+	}
+
+}
+
 ?>
