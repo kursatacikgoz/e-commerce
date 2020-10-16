@@ -15,20 +15,19 @@ include 'header.php';
 		</div>
 	</div>
 	<div class="title-bg">
-		<div class="title">Sepetim</div>
+		<div class="title">Payment</div>
 	</div>
 
 	<div class="table-responsive">
 		<table class="table table-bordered chart">
 			<thead>
 				<tr>
-					<th>Kaldır</th>
-					<th>Ürün</th>
-					<th>Ürün Adı</th>
-					<th>Ürün Kodu</th>
-					<th>Adet</th>
-					<th>Birim Fiyat</th>
-					<th>Toplam Fiyat</th>
+					<th>Product</th>
+					<th>Product Name</th>
+					<th>Product code</th>
+					<th>Piece</th>
+					<th>Unit price</th>
+					<th>Total price</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,11 +59,10 @@ include 'header.php';
 					?>
 
 					<tr>
-						<td><form><input type="checkbox"></form></td>
 						<td><img src="images\demo-img.jpg" width="100" alt=""></td>
 						<td><?php echo $uruncek['urun_ad']; ?></td>
 						<td><?php echo $uruncek['urun_id']; ?></td>
-						<td><form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>" class="form-control quantity"></form></td>
+						<td><form><?php echo $sepetcek['urun_adet']; ?></form></td>
 						<td>
 						</td>
 						<td><?php echo $uruncek['urun_fiyat']*$sepetcek['urun_adet']; ?> TL</td>
@@ -85,11 +83,62 @@ include 'header.php';
 				
 				<div class="total">Toplam : <span class="bigprice"><?php echo $toplam_fiyat; ?> TL</span></div> 
 				<div class="clearfix"></div>
-				<a href="odeme.php" class="btn btn-default btn-yellow">Ödeme Sayfası</a>
+				<!-- <a href="" class="btn btn-default btn-yellow">Ödeme Sayfası</a> --> 
 			</div>
 			<div class="clearfix"></div>
 		</div>
 	</div>
+
+	<div class="tab-review">
+		<ul id="myTab" class="nav nav-tabs shop-tab">
+			<li class="active"><a href="#desc" data-toggle="tab">Credit card</a></li>
+			<li ><a href="#rev" data-toggle="tab">Bank transfer</a></li>
+			
+		</ul>
+		<div id="myTabContent" class="tab-content shop-tab-ct">
+			<div class="tab-pane fade" id="desc">
+				<p>
+					Integration Procedures...
+				</p>
+			</div>
+			<div class="tab-pane fade" id="rev">
+
+				<form action="nedmin/netting/islem.php" method="POST">
+
+					<p>Select the bank you will pay</p>
+
+
+					<?php 
+
+					$bankasor=$db->prepare("SELECT * FROM banka order by banka_id ASC");
+					$bankasor->execute();
+
+					while($bankacek=$bankasor->fetch(PDO::FETCH_ASSOC)) { ?>
+
+						<input type="radio" name="banka_id" value="<?php echo $bankacek['banka_id']; ?>">
+
+						<?php echo $bankacek['banka_ad'] ?> <br>
+
+
+					<?php } ?>
+
+					<br>
+
+
+					<div align="right">
+						<button class="btn btn-success" type="submit" name="saveorder">Order</button>
+					</div>
+
+
+				</form>
+
+				</div>
+
+
+
+		</div>
+	</div>
+
 	<div class="spacer"></div>
 </div>
 

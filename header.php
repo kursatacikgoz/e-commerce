@@ -237,7 +237,7 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 										</table>
 										<br>
 										<div class="btn-popcart">
-											<a href="checkout.htm" class="btn btn-default btn-red btn-sm">Ödeme Sayfası</a>
+											<a href="sepet.php" class="btn btn-default btn-red btn-sm">Sepetim</a>
 										</div>
 										<div class="popcart-tot">
 											<p>

@@ -475,6 +475,30 @@ if(isset($_POST['kullaniciduzenle'])){
 
 }
 
+if(isset($_POST['userupdateinformation'])){
+
+	$kullanici_id = $_POST['kullanici_id'];
+
+	$ayarkaydet=$db->prepare("UPDATE kullanici SET
+		kullanici_adsoyad=:kullanici_adsoyad,
+		kullanici_il=:kullanici_il,
+		kullanici_ilce=:kullanici_ilce
+		WHERE kullanici_id={$_POST['kullanici_id']}");
+
+	$update=$ayarkaydet->execute(array(
+		'kullanici_adsoyad'=> $_POST['kullanici_adsoyad'],
+		'kullanici_il'=> $_POST['kullanici_il'],
+		'kullanici_ilce'=> $_POST['kullanici_ilce']
+	));
+
+	if($update){
+		header("Location:../../hesabim.php?durum=ok");
+	}else{
+		header("Location:../../hesabim.php?durum=fail");
+	}
+
+}
+
 if($_GET['kullanicisil']=="ok"){
 
 
@@ -863,5 +887,261 @@ if(isset($_POST['sepetekle'])){
 	}
 
 }
+
+if ($_GET['urun_onecikan']=="ok") {
+
+	
+	$duzenle=$db->prepare("UPDATE urun SET
+		urun_onecikan=:urun_onecikan
+		WHERE urun_id={$_GET['urun_id']}");
+	$update=$duzenle->execute(array(
+		'urun_onecikan' => $_GET['urun_one']
+	));
+
+
+
+	if ($update) {
+
+		Header("Location:../production/urun.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/urun.php?durum=fail");
+	}
+
+}
+
+if ($_GET['yorum_onay']=="ok") {
+
+	
+	$duzenle=$db->prepare("UPDATE yorumlar SET
+		yorum_onay=:yorum_onay
+		WHERE yorum_id={$_GET['yorum_id']}");
+	$update=$duzenle->execute(array(
+		'yorum_onay' => $_GET['yorum_one']
+	));
+
+
+
+	if ($update) {
+
+		Header("Location:../production/yorum.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/yorum.php?durum=fail");
+	}
+
+}
+
+if($_GET['yorumsil']=="ok"){
+
+
+	$sil=$db->prepare("DELETE from yorumlar where yorum_id=:id");
+
+
+	$kontrol=$sil->execute(array(
+
+		'id'=> $_GET['yorum_id']
+	));
+
+	if($kontrol){
+		header("Location:../production/yorum.php?sil=ok");
+	}else{
+		header("Location:../production/yorum.php?sil=fail");
+	}
+
+}
+
+if (isset($_POST['bankaekle'])) { 
+
+	$kaydet=$db->prepare("INSERT INTO banka SET
+		banka_ad=:ad,
+		banka_durum=:banka_durum,
+		banka_hesapadsoyad=:banka_hesapadsoyad,
+		banka_iban=:banka_iban
+		");
+	$insert=$kaydet->execute(array(
+		'ad' => $_POST['banka_ad'],
+		'banka_durum' => $_POST['banka_durum'],
+		'banka_hesapadsoyad' => $_POST['banka_hesapadsoyad'],
+		'banka_iban' => $_POST['banka_iban']
+	));
+
+
+
+	if ($insert) {
+
+		Header("Location:../production/banka.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/banka.php?durum=fail");
+
+	}
+
+}
+
+if (isset($_POST['bankaduzenle'])) {
+
+	$banka_id=$_POST['banka_id']; 
+
+	$kaydet=$db->prepare("UPDATE banka SET
+		banka_ad=:ad,
+		banka_durum=:banka_durum,	
+		banka_hesapadsoyad=:banka_hesapadsoyad,
+		banka_iban=:banka_iban
+		WHERE banka_id={$_POST['banka_id']}");
+	$update=$kaydet->execute(array(
+		'ad' => $_POST['banka_ad'],
+		'banka_durum' => $_POST['banka_durum'],
+		'banka_hesapadsoyad' => $_POST['banka_hesapadsoyad'],
+		'banka_iban' => $_POST['banka_iban']	
+	));
+
+
+
+	if ($update) {
+
+		Header("Location:../production/banka-duzenle.php?banka_id=$banka_id&durum=ok");
+
+	} else {
+
+		Header("Location:../production/banka-duzenle.php?banka_id=$banka_id&durum=fail");
+
+	}
+
+} 
+
+if($_GET['bankasil']=="ok"){
+
+
+	$sil=$db->prepare("DELETE from banka where banka_id=:id");
+
+
+	$kontrol=$sil->execute(array(
+
+		'id'=> $_GET['banka_id']
+	));
+
+	if($kontrol){
+		header("Location:../production/banka.php?sil=ok");
+	}else{
+		header("Location:../production/banka.php?sil=fail");
+	}
+
+}
+
+
+if (isset($_POST['userupdatepasssword'])) {
+
+	echo $kullanici_oldpassword=trim($_POST['kullanici_oldpassword']); echo "<br>";
+	echo $kullanici_passwordone=trim($_POST['kullanici_passwordone']); echo "<br>";
+	echo $kullanici_passwordtwo=trim($_POST['kullanici_passwordtwo']); echo "<br>";
+
+	$kullanici_password=md5($kullanici_oldpassword);
+
+
+	$kullanicisor=$db->prepare("select * from kullanici where kullanici_password=:password");
+	$kullanicisor->execute(array(
+		'password' => $kullanici_password
+		));
+
+			//dönen satır sayısını belirtir
+	$say=$kullanicisor->rowCount();
+
+
+
+	if ($say==0) {
+
+		header("Location:../../update-password?durum=oldpasswordwrong");
+
+
+
+	} else {
+
+
+
+	//eski şifre doğruysa başla
+
+
+		if ($kullanici_passwordone==$kullanici_passwordtwo) {
+
+
+			if (strlen($kullanici_passwordone)>=6) {
+
+
+				//md5 fonksiyonu şifreyi md5 şifreli hale getirir.
+				$password=md5($kullanici_passwordone);
+
+				$kullanici_yetki=1;
+
+				$kullanicikaydet=$db->prepare("UPDATE kullanici SET
+					kullanici_password=:kullanici_password
+					WHERE kullanici_id={$_POST['kullanici_id']}");
+
+				
+				$insert=$kullanicikaydet->execute(array(
+					'kullanici_password' => $password
+					));
+
+				if ($insert) {
+
+
+					header("Location:../../update-password.php?durum=passwordupdated");
+
+
+				//Header("Location:../production/genel-ayarlar.php?durum=ok");
+
+				} else {
+
+
+					header("Location:../../update-password.php?durum=fail");
+				}
+
+
+
+
+
+		// Bitiş
+
+
+
+			} else {
+
+
+				header("Location:../../update-password.php?durum=missedpassword");
+
+
+			}
+
+
+
+		} else {
+
+			header("Location:../../update-password?durum=failmatch");
+
+			exit;
+
+
+		}
+
+
+	}
+
+	exit;
+
+	if ($update) {
+
+		header("Location:../../update-password?durum=ok");
+
+	} else {
+
+		header("Location:../../update-password?durum=fail");
+	}
+
+}
+
+
 
 ?>
