@@ -1,9 +1,9 @@
-<?php 
+<?php
 include 'header.php';
 ?>
 
 <div class="container">
-	
+
 	<div class="clearfix"></div>
 	<div class="lines"></div>
 </div>
@@ -11,7 +11,7 @@ include 'header.php';
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			
+
 		</div>
 	</div>
 	<div class="title-bg">
@@ -34,40 +34,43 @@ include 'header.php';
 			<tbody>
 
 
-				<?php 
-				$kullanici_id=$kullanicicek['kullanici_id'];
+				<?php
+				$kullanici_id = $kullanicicek['kullanici_id'];
 
-				$sepetsor=$db->prepare("SELECT * FROM sepet where kullanici_id =:id");
+				$sepetsor = $db->prepare("SELECT * FROM sepet where kullanici_id =:id");
 
 				$sepetsor->execute(array(
-					'id'=>$kullanici_id
+					'id' => $kullanici_id
 				));
 
-				while ($sepetcek=$sepetsor->fetch(PDO::FETCH_ASSOC)) { 
+				while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
 
-					$urun_id=$sepetcek['urun_id'];
+					$urun_id = $sepetcek['urun_id'];
 
-					$urunsor=$db->prepare("SELECT * FROM urun where urun_id =:id");
+					$urunsor = $db->prepare("SELECT * FROM urun where urun_id =:id");
 
 					$urunsor->execute(array(
-						'id'=>$urun_id
+						'id' => $urun_id
 					));
 
-					$uruncek=$urunsor->fetch(PDO::FETCH_ASSOC);
+					$uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
 
-					$toplam_fiyat+=$uruncek['urun_fiyat']*$sepetcek['urun_adet'];
+					$toplam_fiyat += $uruncek['urun_fiyat'] * $uruncek['urun_adet'];
 
-					?>
+				?>
 
 					<tr>
-						<td><form><input type="checkbox"></form></td>
+						<td>
+							<form><input type="checkbox"></form>
+						</td>
 						<td><img src="images\demo-img.jpg" width="100" alt=""></td>
 						<td><?php echo $uruncek['urun_ad']; ?></td>
 						<td><?php echo $uruncek['urun_id']; ?></td>
-						<td><form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>" class="form-control quantity"></form></td>
 						<td>
+							<form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>" class="form-control quantity"></form>
 						</td>
-						<td><?php echo $uruncek['urun_fiyat']*$sepetcek['urun_adet']; ?> TL</td>
+						<td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
+						<td><?php echo $uruncek['urun_fiyat'] * $sepetcek['urun_adet']; ?> TL</td>
 					</tr>
 
 				<?php } ?>
@@ -77,13 +80,13 @@ include 'header.php';
 	</div>
 	<div class="row">
 		<div class="col-md-6">
-			
-			
+
+
 		</div>
 		<div class="col-md-3 col-md-offset-3">
 			<div class="subtotal-wrap">
-				
-				<div class="total">Toplam : <span class="bigprice"><?php echo $toplam_fiyat; ?> TL</span></div> 
+
+				<div class="total">Toplam : <span class="bigprice"><?php echo $toplam_fiyat; ?> TL</span></div>
 				<div class="clearfix"></div>
 				<a href="odeme.php" class="btn btn-default btn-yellow">Ödeme Sayfası</a>
 			</div>
@@ -95,7 +98,7 @@ include 'header.php';
 
 
 
-<?php 
+<?php
 include 'footer.php';
 
 
