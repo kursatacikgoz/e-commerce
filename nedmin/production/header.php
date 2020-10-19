@@ -1,27 +1,27 @@
-<?php 
+<?php
 
 ob_start();
 session_start();
 
 include '../netting/baglan.php';
 
-$ayarsor=$db->prepare("SELECT * FROM ayar where ayar_id =:id");
+$ayarsor = $db->prepare("SELECT * FROM ayar where ayar_id =:id");
 
 $ayarsor->execute(array(
-  'id'=>0
+  'id' => 0
 ));
 
-$ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
+$ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
 
-$kullanicisor=$db->prepare("SELECT * FROM kullanici where kullanici_mail =:mail");
+$kullanicisor = $db->prepare("SELECT * FROM kullanici where kullanici_mail =:mail");
 
 $kullanicisor->execute(array(
-  'mail'=>$_SESSION['kullanici_mail']
+  'mail' => $_SESSION['kullanici_mail']
 ));
-$say=$kullanicisor->rowCount();
-$kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+$say = $kullanicisor->rowCount();
+$kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
-if ($say==0) {
+if ($say == 0) {
   header("Location:login.php?durum=izinsiz");
   exit();
 }
@@ -32,6 +32,7 @@ if ($say==0) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
@@ -56,12 +57,22 @@ if ($say==0) {
   <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
   <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+  <!-- Dropzone.js -->
+
+  <link href="../vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+
+
+
+  <!-- Dropzone.js -->
+
+  <script src="../vendors/dropzone/dist/min/dropzone.min.js"></script>
+
 
   <head>
     <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
   </head>
 
-  
+
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
@@ -115,14 +126,14 @@ if ($say==0) {
                 <li><a href="slider.php"><i class="fa fa-image"></i> Slider </a></li>
                 <li><a href="yorum.php"><i class="fa fa-comments"></i> Yorumlar </a></li>
                 <li><a href="banka.php"><i class="fa fa-bank"></i> Bankalar </a></li>
-                
 
 
-                
-                
 
 
-                
+
+
+
+
               </ul>
             </div>
 
@@ -164,7 +175,7 @@ if ($say==0) {
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                  <li><a href="javascript:;"> Profil Bilgileri</a></li>                  
+                  <li><a href="javascript:;"> Profil Bilgileri</a></li>
                   <li><a style="color: green" href="logout.php"><i class="fa fa-sign-out pull-right"></i> Güvenli Çıkış </a></li>
                 </ul>
               </li>
@@ -237,4 +248,4 @@ if ($say==0) {
           </nav>
         </div>
       </div>
-        <!-- /top navigation -->
+      <!-- /top navigation -->

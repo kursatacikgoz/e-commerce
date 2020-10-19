@@ -1,7 +1,7 @@
-<?php 
-include 'header.php'; 
+<?php
+include 'header.php';
 
-$urunsor=$db->prepare("SELECT * FROM urun order by urun_id DESC");
+$urunsor = $db->prepare("SELECT * FROM urun order by urun_id DESC");
 $urunsor->execute();
 ?>
 
@@ -17,22 +17,22 @@ $urunsor->execute();
           <div class="x_title">
             <h2>Ürün Listeleme <small>,
 
-              <?php 
+                <?php
 
-              if ($_GET['durum']=="ok") {?>
+                if ($_GET['durum'] == "ok") { ?>
 
-                <b style="color:green;">İşlem Başarılı...</b>
+                  <b style="color:green;">İşlem Başarılı...</b>
 
-              <?php } elseif ($_GET['durum']=="no") {?>
+                <?php } elseif ($_GET['durum'] == "no") { ?>
 
-                <b style="color:red;">İşlem Başarısız...</b>
+                  <b style="color:red;">İşlem Başarısız...</b>
 
-              <?php }
+                <?php }
 
-              ?>
+                ?>
 
 
-            </small></h2>
+              </small></h2>
 
             <div class="clearfix"></div>
 
@@ -53,6 +53,7 @@ $urunsor->execute();
                   <th>Ad</th>
                   <th>Stok</th>
                   <th>Fiyat</th>
+                  <th>Photo Processing</th>
                   <th>Durum</th>
                   <th>Öne Çıkan</th>
                   <th></th>
@@ -62,9 +63,10 @@ $urunsor->execute();
 
               <tbody>
 
-                <?php 
-                $say=0;
-                while($uruncek=$urunsor->fetch(PDO::FETCH_ASSOC)) { $say++; ?>
+                <?php
+                $say = 0;
+                while ($uruncek = $urunsor->fetch(PDO::FETCH_ASSOC)) {
+                  $say++; ?>
 
 
                   <tr>
@@ -72,46 +74,53 @@ $urunsor->execute();
                     <td><?php echo $uruncek['urun_ad'] ?></td>
                     <td><?php echo $uruncek['urun_stok'] ?></td>
                     <td><?php echo $uruncek['urun_fiyat'] ?></td>
-                    <td><?php 
+                    <td>
+                      <center><a href="urun-galeri.php?urun_id=<?php echo $uruncek['urun_id']; ?>"><button class="btn btn-success btn-xs">Photo Processing</button></a></center>
+                    </td>
+                    <td><?php
 
-                    if ($uruncek['urun_durum']==1) {?>
+                        if ($uruncek['urun_durum'] == 1) { ?>
 
-                      <button class="btn btn-success btn-xs">Aktif</button>
-
-
-                    <?php }else{?>
-
-
-                      <button class="btn btn-danger btn-xs">Pasif</button>
+                        <button class="btn btn-success btn-xs">Aktif</button>
 
 
-                    <?php }
-                    
+                      <?php } else { ?>
 
 
-                    ?></td>
-
-                    <td><?php 
-
-                    if ($uruncek['urun_onecikan']==1) {?>
-
-                      <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urun_one=0&urun_onecikan=ok"><button class="btn btn-success btn-xs">Aktif</button></a>
+                        <button class="btn btn-danger btn-xs">Pasif</button>
 
 
-                    <?php }else{?>
+                      <?php }
 
 
-                      <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urun_one=1&urun_onecikan=ok"><button class="btn btn-danger btn-xs">Pasif</button></a>
+
+                      ?></td>
+
+                    <td><?php
+
+                        if ($uruncek['urun_onecikan'] == 1) { ?>
+
+                        <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urun_one=0&urun_onecikan=ok"><button class="btn btn-success btn-xs">Aktif</button></a>
 
 
-                    <?php }
-                    
+                      <?php } else { ?>
 
 
-                    ?></td>
+                        <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urun_one=1&urun_onecikan=ok"><button class="btn btn-danger btn-xs">Pasif</button></a>
 
-                    <td><center><a href="urun-duzenle.php?urun_id=<?php echo $uruncek['urun_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center></td>
-                    <td><center><a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urunsil=ok"><button class="btn btn-danger btn-xs">Sil</button></a></center></td>
+
+                      <?php }
+
+
+
+                      ?></td>
+
+                    <td>
+                      <center><a href="urun-duzenle.php?urun_id=<?php echo $uruncek['urun_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center>
+                    </td>
+                    <td>
+                      <center><a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id']; ?>&urunsil=ok"><button class="btn btn-danger btn-xs">Sil</button></a></center>
+                    </td>
                   </tr>
 
 

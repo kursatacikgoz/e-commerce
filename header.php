@@ -1,29 +1,30 @@
-<?php 
+<?php
 ob_start();
 session_start();
 include 'nedmin/netting/baglan.php';
-include 'nedmin/production/fonksiyon.php'; 
+include 'nedmin/production/fonksiyon.php';
 
-$ayarsor=$db->prepare("SELECT * FROM ayar where ayar_id =:id");
+$ayarsor = $db->prepare("SELECT * FROM ayar where ayar_id =:id");
 
 $ayarsor->execute(array(
-	'id'=>0
+	'id' => 0
 ));
 
-$ayarcek=$ayarsor->fetch(PDO::FETCH_ASSOC);
+$ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
 
-$kullanicisor=$db->prepare("SELECT * FROM kullanici where kullanici_mail =:mail");
+$kullanicisor = $db->prepare("SELECT * FROM kullanici where kullanici_mail =:mail");
 
 $kullanicisor->execute(array(
-	'mail'=>$_SESSION['userkullanici_mail']
-)); 
-$kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
+	'mail' => $_SESSION['userkullanici_mail']
+));
+$kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,26 +40,28 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 	<link href='font-awesome\css\font-awesome.css' rel="stylesheet" type="text/css">
 	<!-- Bootstrap -->
 	<link href="bootstrap\css\bootstrap.min.css" rel="stylesheet">
-	
+
 	<!-- Main Style -->
 	<link rel="stylesheet" href="style.css">
-	
+
 	<!-- owl Style -->
 	<link rel="stylesheet" href="css\owl.carousel.css">
 	<link rel="stylesheet" href="css\owl.transitions.css">
 
-	
+
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
 <body>
 	<div id="wrapper">
-		<div class="header"><!--Header -->
+		<div class="header">
+			<!--Header -->
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-6 col-md-4 main-logo">
@@ -70,13 +73,13 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 					<div class="col-md-8">
 						<div class="pushright">
 							<div class="top">
-								<?php 
+								<?php
 
-								if (!isset($_SESSION['userkullanici_mail'] )) {?>
+								if (!isset($_SESSION['userkullanici_mail'])) { ?>
 
 									<a href="#" id="reg" class="btn btn-default btn-dark">Giriş Yap<span>-- ya da --</span>Kayıt Ol</a>
 
-								<?php }else{ ?>
+								<?php } else { ?>
 
 									<a href="#" class="btn btn-default btn-dark">Hoşgeldin<span>-</span><?php echo $kullanicicek['kullanici_adsoyad'] ?></a>
 
@@ -123,11 +126,12 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 								<div class="srchwrap">
 									<div class="row">
 										<div class="col-md-12">
-											<form class="form-horizontal" role="form">
+											<form action="arama" method="POST" class="form-horizontal" role="form">
 												<div class="form-group">
-													<label for="search" class="col-sm-2 control-label">Search</label>
+													<!--<label for="search" class="col-sm-2 control-label">Search</label>-->
+													<button name="arama" class="btn btn-default   ">Ara</button>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" id="search">
+														<input type="text" name="aranan" minlength="3" class="form-control" id="search">
 													</div>
 												</div>
 											</form>
@@ -143,8 +147,10 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 				</div>
 			</div>
 			<div class="dashed"></div>
-		</div><!--Header -->
-		<div class="main-nav"><!--end main-nav -->
+		</div>
+		<!--Header -->
+		<div class="main-nav">
+			<!--end main-nav -->
 			<div class="navbar navbar-default navbar-static-top">
 				<div class="container">
 					<div class="row">
@@ -158,109 +164,112 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 							</div>
 							<div class="navbar-collapse collapse">
 								<ul class="nav navbar-nav">
-									<li><a href="index.php" class="active">Anasayfa</a><div class="curve"></div></li>
+									<li><a href="index.php" class="active">Anasayfa</a>
+										<div class="curve"></div>
+									</li>
 
-									<?php 
-									$menusor=$db->prepare("SELECT * FROM menu where menu_durum=:durum order by menu_sira ASC limit 5");
+									<?php
+									$menusor = $db->prepare("SELECT * FROM menu where menu_durum=:durum order by menu_sira ASC limit 5");
 									$menusor->execute(array(
-										'durum'=>1
+										'durum' => 1
 									));
-									while($menucek=$menusor->fetch(PDO::FETCH_ASSOC)) { 
-										?>
+									while ($menucek = $menusor->fetch(PDO::FETCH_ASSOC)) {
+									?>
 
-										
+
 										<li><a href="
 
-											<?php if(!empty($menucek['menu_url'])){
+											<?php if (!empty($menucek['menu_url'])) {
 												echo $menucek['menu_url'];
-												}else{
-													echo "sayfa-".seo($menucek['menu_ad']);
-												} ?>
+											} else {
+												echo "sayfa-" . seo($menucek['menu_ad']);
+											} ?>
 
 												"><?php echo $menucek['menu_ad']; ?></a></li>
 
 
 
-											<?php }?> 
+									<?php } ?>
 
 
 
-										</ul>
-									</div>
-								</div>
-								<div class="col-md-2 machart">
-									<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Sepetim</span>|<span class="allprice">$0.00</span></button>
-									<div class="popcart">
-										<table class="table table-condensed popcart-inner">
-											<tbody>
-
-												<?php 
-												$kullanici_id=$kullanicicek['kullanici_id'];
-
-												$sepetsor=$db->prepare("SELECT * FROM sepet where kullanici_id =:id");
-
-												$sepetsor->execute(array(
-													'id'=>$kullanici_id
-												));
-
-												while ($sepetcek=$sepetsor->fetch(PDO::FETCH_ASSOC)) { 
-
-													$urun_id=$sepetcek['urun_id'];
-
-													$urunsor=$db->prepare("SELECT * FROM urun where urun_id =:id");
-
-													$urunsor->execute(array(
-														'id'=>$urun_id
-													));
-
-													$uruncek=$urunsor->fetch(PDO::FETCH_ASSOC);
-
-													$toplam_fiyat+=$uruncek['urun_fiyat']*$sepetcek['urun_adet'];
-
-													?>
-
-
-													<tr>
-														<td>
-															<a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-														</td>
-														<td><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a><br></td>
-														<td><?php echo $sepetcek['urun_adet']; ?>X</td>
-														<td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
-														<td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-													</tr>
-
-
-												<?php } ?>
-												
-											</tbody>
-										</table>
-										<br>
-										<div class="btn-popcart">
-											<a href="sepet.php" class="btn btn-default btn-red btn-sm">Sepetim</a>
-										</div>
-										<div class="popcart-tot">
-											<p>
-												Toplam<br>
-												<span><?php echo $toplam_fiyat; ?> TL</span>
-											</p>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-
-								<?php 
-
-								if (isset($_SESSION['userkullanici_mail'] )) {?>
-									<ul class="small-menu">
-										<li><a href="hesabim" class="myacc">Hesap Bilgilerim</a></li>
-										<li><a href="siparislerim" class="myshop">Siparişlerim</a></li>
-										<li><a href="logout" class="mycheck">Güvenli Çıkış</a></li>
-									</ul>
-								<?php } ?>		
-
-
+								</ul>
 							</div>
 						</div>
+						<div class="col-md-2 machart">
+							<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Sepetim</span>|<span class="allprice">$0.00</span></button>
+							<div class="popcart">
+								<table class="table table-condensed popcart-inner">
+									<tbody>
+
+										<?php
+										$kullanici_id = $kullanicicek['kullanici_id'];
+
+										$sepetsor = $db->prepare("SELECT * FROM sepet where kullanici_id =:id");
+
+										$sepetsor->execute(array(
+											'id' => $kullanici_id
+										));
+
+										while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
+
+											$urun_id = $sepetcek['urun_id'];
+
+											$urunsor = $db->prepare("SELECT * FROM urun where urun_id =:id");
+
+											$urunsor->execute(array(
+												'id' => $urun_id
+											));
+
+											$uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
+
+											$toplam_fiyat += $uruncek['urun_fiyat'] * $sepetcek['urun_adet'];
+
+										?>
+
+
+											<tr>
+												<td>
+													<a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
+												</td>
+												<td><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a><br></td>
+												<td><?php echo $sepetcek['urun_adet']; ?>X</td>
+												<td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
+												<td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
+											</tr>
+
+
+										<?php } ?>
+
+									</tbody>
+								</table>
+								<br>
+								<div class="btn-popcart">
+									<a href="sepet.php" class="btn btn-default btn-red btn-sm">Sepetim</a>
+								</div>
+								<div class="popcart-tot">
+									<p>
+										Toplam<br>
+										<span><?php echo $toplam_fiyat; ?> TL</span>
+									</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+
+						<?php
+
+						if (isset($_SESSION['userkullanici_mail'])) { ?>
+							<ul class="small-menu">
+								<li><a href="hesabim" class="myacc">Hesap Bilgilerim</a></li>
+								<li><a href="siparislerim" class="myshop">Siparişlerim</a></li>
+								<li><a href="logout" class="mycheck">Güvenli Çıkış</a></li>
+							</ul>
+						<?php } ?>
+
+
 					</div>
-	</div><!--end main-nav -->
+				</div>
+			</div>
+		</div>
+		<!--end main-nav -->

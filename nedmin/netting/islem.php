@@ -1144,3 +1144,55 @@ if (isset($_POST['addbankorder'])) {
 		//Header("Location:../production/siparis.php?durum=fail");
 	}
 }
+
+
+
+if (isset($_POST['urunfotosil'])) {
+
+	$urun_id = $_POST['urun_id'];
+
+
+	echo $checklist = $_POST['urunfotosec'];
+
+
+	foreach ($checklist as $list) {
+
+		$sil = $db->prepare("DELETE from urunfoto where urunfoto_id=:urunfoto_id");
+		$kontrol = $sil->execute(array(
+			'urunfoto_id' => $list
+		));
+	}
+
+	if ($kontrol) {
+
+		Header("Location:../production/urun-galeri.php?urun_id=$urun_id&durum=ok");
+	} else {
+
+		Header("Location:../production/urun-galeri.php?urun_id=$urun_id&durum=no");
+	}
+}
+
+
+if (isset($_POST['mailayarkaydet'])) {
+
+	$ayarkaydet = $db->prepare("UPDATE ayar SET
+		ayar_smtphost=:smtphost,
+		ayar_smtpuser=:smtpuser,
+		ayar_smtppassword=:smtppassword,
+		ayar_smtpport=:smtpport
+		WHERE ayar_id=0");
+	$update = $ayarkaydet->execute(array(
+		'smtphost' => $_POST['ayar_smtphost'],
+		'smtpuser' => $_POST['ayar_smtpuser'],
+		'smtppassword' => $_POST['ayar_smtppassword'],
+		'smtpport' => $_POST['ayar_smtpport']
+	));
+
+	if ($update) {
+
+		Header("Location:../production/mail-ayar.php?durum=ok");
+	} else {
+
+		Header("Location:../production/mail-ayar.php?durum=no");
+	}
+}
