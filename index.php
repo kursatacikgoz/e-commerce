@@ -14,7 +14,7 @@
 	<div class="f-widget featpro">
 		<div class="container">
 			<div class="title-widget-bg">
-				<div class="title-widget">Öne Çıkan Ürünler</div>
+				<div class="title-widget">Featured Products</div>
 				<div class="carousel-nav">
 					<a class="prev"></a>
 					<a class="next"></a>
@@ -51,7 +51,7 @@
 								</div>
 							</div>
 							<span class="smalltitle"><a href="urun-<?= seo($uruncek["urun_ad"]) . '-' . ($uruncek["urun_id"]) ?>"><?php echo $uruncek['urun_ad']; ?></a></span>
-							<span class="smalldesc">Ürün Kodu: <?php echo $uruncek['urun_id']; ?></span>
+							<span class="smalldesc">Product code: <?php echo $uruncek['urun_id']; ?></span>
 						</div>
 					</div>
 
@@ -71,7 +71,7 @@
 			<div class="col-md-9">
 				<!--Main content-->
 				<div class="title-bg">
-					<div class="title">Hakkımızda</div>
+					<div class="title">About us</div>
 				</div>
 				<p class="ct">
 					<?php
@@ -86,7 +86,7 @@
 					echo substr($hakkimizdacek['hakkimizda_icerik'], 0, 500) . "...";
 					?>
 				</p>
-				<a href="hakkimizda" class="btn btn-default btn-red btn-sm">Devamı</a>
+				<a href="hakkimizda" class="btn btn-default btn-red btn-sm">More..</a>
 
 				<div class="title-bg">
 					<div class="title">Lastest Products</div>

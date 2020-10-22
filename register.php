@@ -7,10 +7,10 @@
 				<div class="page-title-inner">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="bigtitle">Kullanıcı Kaydı</div>
-							<p >Kullanıcı kayıt işlemlerini aşağıda ki form aracılığı ile gerçekleştirebilirsiniz.</p>
+							<div class="bigtitle">User Registration</div>
+							<p>You can perform user registration via the form below. </p>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -21,76 +21,76 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="title-bg">
-					<div class="title">Kayıt Bilgileri</div>
+					<div class="title">Registration Information</div>
 				</div>
 
-				<?php 
+				<?php
 
-				if ($_GET['durum']=="eslesmeyensifre") {?>
+				if ($_GET['durum'] == "eslesmeyensifre") { ?>
 
-				<div class="alert alert-danger">
-					<strong>Hata!</strong> Girdiğiniz şifreler eşleşmiyor.
-				</div>
-					
-				<?php } elseif ($_GET['durum']=="eksiksifre") {?>
+					<div class="alert alert-danger">
+						<strong>Hata!</strong> The passwords you entered do not match.
+					</div>
 
-				<div class="alert alert-danger">
-					<strong>Hata!</strong> Şifreniz minimum 6 karakter uzunluğunda olmalıdır.
-				</div>
-					
-				<?php } elseif ($_GET['durum']=="kayitlikullanici") {?>
+				<?php } elseif ($_GET['durum'] == "eksiksifre") { ?>
 
-				<div class="alert alert-danger">
-					<strong>Hata!</strong> Bu kullanıcı daha önce kayıt edilmiş.
-				</div>
-					
-				<?php } elseif ($_GET['durum']=="basarisiz") {?>
+					<div class="alert alert-danger">
+						<strong>Hata!</strong> Your password must be at least 6 characters long.
+					</div>
 
-				<div class="alert alert-danger">
-					<strong>Hata!</strong> Kayıt Yapılamadı Sistem Yöneticisine Danışınız.
-				</div>
-					
+				<?php } elseif ($_GET['durum'] == "kayitlikullanici") { ?>
+
+					<div class="alert alert-danger">
+						<strong>Hata!</strong> This user has been registered before.
+					</div>
+
+				<?php } elseif ($_GET['durum'] == "basarisiz") { ?>
+
+					<div class="alert alert-danger">
+						<strong>Hata!</strong> Failed to Register Consult the System Administrator.
+					</div>
+
 				<?php }
-				 ?>
+				?>
 
 
-				
+
 
 
 				<div class="form-group dob">
 					<div class="col-sm-12">
-						
-						<input type="text" class="form-control"  required="" name="kullanici_adsoyad" placeholder="Ad ve Soyadınızı Giriniz...">
+
+						<input type="text" class="form-control" required="" name="kullanici_adsoyad" placeholder="Enter Your Name and Surname ...">
 					</div>
-					
+
 				</div>
 				<div class="form-group">
 					<div class="col-sm-12">
-						<input type="email" class="form-control" required="" name="kullanici_mail"  placeholder="Dikkat! Mail adresiniz kullanıcı adınız olacaktır.">
+						<input type="email" class="form-control" required="" name="kullanici_mail" placeholder="Attention! Your e-mail address will be your username.">
 					</div>
 				</div>
 				<div class="form-group dob">
 					<div class="col-sm-6">
-						<input type="password" class="form-control" name="kullanici_passwordone"    placeholder="Şifrenizi Giriniz...">
+						<input type="password" class="form-control" name="kullanici_passwordone" placeholder="Enter your password ...">
 					</div>
 					<div class="col-sm-6">
-						<input type="password" class="form-control" name="kullanici_passwordtwo"   placeholder="Şifrenizi Tekrar Giriniz...">
+						<input type="password" class="form-control" name="kullanici_passwordtwo" placeholder="Re-enter your password ...">
 					</div>
 				</div>
 
 
 
-				<button type="submit" name="kullanicikaydet" class="btn btn-default btn-red">Kayıt İşlemini Yap</button>
+				<button type="submit" name="kullanicikaydet" class="btn btn-default btn-red">Register</button>
 			</div>
 			<div class="col-md-6">
 				<div class="title-bg">
-					<div class="title">Şifrenizi mi Unuttunuz?</div>
+					<div class="title">Forgot Your Password?</div>
 				</div>
 
 
 			</div>
 		</div>
-	</div>
+</div>
 </form>
 <div class="spacer"></div>
 </div>

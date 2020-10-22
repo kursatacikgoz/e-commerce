@@ -107,25 +107,25 @@ if ($say == 0) {
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="index.php"><i class="fa fa-home"></i> Anasayfa </a></li>
-                <li><a><i class="fa fa-cogs"></i> Site Ayarları <span class="fa fa-chevron-down"></span></a>
+                <li><a href="index.php"><i class="fa fa-home"></i> Home </a></li>
+                <li><a><i class="fa fa-cogs"></i> Site Settings <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="genel-ayar.php"> Genel Ayarlar </a></li>
-                    <li><a href="iletisim-ayar.php"> İletişim Ayarları </a></li>
-                    <li><a href="api-ayarlar.php"> API Ayarları </a></li>
-                    <li><a href="sosyal-ayar.php"> Sosyal Ayarlar </a></li>
-                    <li><a href="mail-ayar.php"> Mail Ayarları </a></li>
+                    <li><a href="genel-ayar.php"> General Settings </a></li>
+                    <li><a href="iletisim-ayar.php"> Communication Settings </a></li>
+                    <li><a href="api-ayarlar.php"> API Settings </a></li>
+                    <li><a href="sosyal-ayar.php"> Social Settings </a></li>
+                    <li><a href="mail-ayar.php"> Mail Settings </a></li>
 
                   </ul>
                 </li>
-                <li><a href="hakkimizda.php"><i class="fa fa-info"></i> Hakkımızda </a></li>
-                <li><a href="kullanici.php"><i class="fa fa-user"></i> Kullanıcı Tablosu </a></li>
-                <li><a href="urun.php"><i class="fa fa-shopping-basket"></i> Ürünler </a></li>
-                <li><a href="menu.php"><i class="fa fa-list"></i> Menüler </a></li>
-                <li><a href="kategori.php"><i class="fa fa-list"></i> Kategoriler </a></li>
+                <li><a href="hakkimizda.php"><i class="fa fa-info"></i> About us </a></li>
+                <li><a href="kullanici.php"><i class="fa fa-user"></i> User Table </a></li>
+                <li><a href="urun.php"><i class="fa fa-shopping-basket"></i> Products </a></li>
+                <li><a href="menu.php"><i class="fa fa-list"></i> Menus </a></li>
+                <li><a href="kategori.php"><i class="fa fa-list"></i> Categories </a></li>
                 <li><a href="slider.php"><i class="fa fa-image"></i> Slider </a></li>
-                <li><a href="yorum.php"><i class="fa fa-comments"></i> Yorumlar </a></li>
-                <li><a href="banka.php"><i class="fa fa-bank"></i> Bankalar </a></li>
+                <li><a href="yorum.php"><i class="fa fa-comments"></i> Comments </a></li>
+                <li><a href="banka.php"><i class="fa fa-bank"></i> Banks </a></li>
 
 
 
@@ -175,7 +175,7 @@ if ($say == 0) {
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                  <li><a href="javascript:;"> Profil Bilgileri</a></li>
+                  <li><a href="javascript:;"> Information Profile </a></li>
                   <li><a style="color: green" href="logout.php"><i class="fa fa-sign-out pull-right"></i> Güvenli Çıkış </a></li>
                 </ul>
               </li>

@@ -77,11 +77,11 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 								if (!isset($_SESSION['userkullanici_mail'])) { ?>
 
-									<a href="#" id="reg" class="btn btn-default btn-dark">Giriş Yap<span>-- ya da --</span>Kayıt Ol</a>
+									<a href="#" id="reg" class="btn btn-default btn-dark">Login<span>-- ya da --</span>Register</a>
 
 								<?php } else { ?>
 
-									<a href="#" class="btn btn-default btn-dark">Hoşgeldin<span>-</span><?php echo $kullanicicek['kullanici_adsoyad'] ?></a>
+									<a href="#" class="btn btn-default btn-dark">Welcome<span>-</span><?php echo $kullanicicek['kullanici_adsoyad'] ?></a>
 
 								<?php } ?>
 								<div class="regwrap">
@@ -104,19 +104,19 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 
 												<div class="form-group">
-													<button type="submit" name="kullanicigiris" class="btn btn-default btn-red btn-sm">Giriş Yap</button>
+													<button type="submit" name="kullanicigiris" class="btn btn-default btn-red btn-sm">Log in</button>
 												</div>
 
 											</form>
 										</div>
 										<div class="col-md-6">
 											<div class="title-widget-bg">
-												<div class="title-widget">Kayıt Ol</div>
+												<div class="title-widget">Register</div>
 											</div>
 											<p>
-												Sen yeni misin ? Alışveriş yapmak için kayıt olmalısın :)
+												Are you new? You have to register to shop :)
 											</p>
-											<a href="register"><button class="btn btn-default btn-yellow">Kayıt Ol</button></a>
+											<a href="register"><button class="btn btn-default btn-yellow">Register</button></a>
 										</div>
 									</div>
 								</div>
@@ -129,7 +129,7 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 											<form action="arama" method="POST" class="form-horizontal" role="form">
 												<div class="form-group">
 													<!--<label for="search" class="col-sm-2 control-label">Search</label>-->
-													<button name="arama" class="btn btn-default   ">Ara</button>
+													<button name="arama" class="btn btn-default   ">Search</button>
 													<div class="col-sm-10">
 														<input type="text" name="aranan" minlength="3" class="form-control" id="search">
 													</div>
@@ -164,7 +164,7 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 							</div>
 							<div class="navbar-collapse collapse">
 								<ul class="nav navbar-nav">
-									<li><a href="index.php" class="active">Anasayfa</a>
+									<li><a href="index.php" class="active">Home</a>
 										<div class="curve"></div>
 									</li>
 
@@ -197,7 +197,7 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 							</div>
 						</div>
 						<div class="col-md-2 machart">
-							<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Sepetim</span>|<span class="allprice">$0.00</span></button>
+							<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
 							<div class="popcart">
 								<table class="table table-condensed popcart-inner">
 									<tbody>
@@ -245,11 +245,11 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 								</table>
 								<br>
 								<div class="btn-popcart">
-									<a href="sepet.php" class="btn btn-default btn-red btn-sm">Sepetim</a>
+									<a href="sepet.php" class="btn btn-default btn-red btn-sm">Cart</a>
 								</div>
 								<div class="popcart-tot">
 									<p>
-										Toplam<br>
+										Total<br>
 										<span><?php echo $toplam_fiyat; ?> TL</span>
 									</p>
 								</div>
@@ -261,9 +261,9 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 						if (isset($_SESSION['userkullanici_mail'])) { ?>
 							<ul class="small-menu">
-								<li><a href="hesabim" class="myacc">Hesap Bilgilerim</a></li>
-								<li><a href="siparislerim" class="myshop">Siparişlerim</a></li>
-								<li><a href="logout" class="mycheck">Güvenli Çıkış</a></li>
+								<li><a href="hesabim" class="myacc">Account Informations</a></li>
+								<li><a href="siparislerim" class="myshop">Orders</a></li>
+								<li><a href="logout" class="mycheck">Safe Exit</a></li>
 							</ul>
 						<?php } ?>
 

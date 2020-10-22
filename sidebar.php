@@ -1,20 +1,21 @@
-<div class="col-md-3"><!--sidebar-->
+<div class="col-md-3">
+	<!--sidebar-->
 	<div class="title-bg">
-		<div class="title">Kategoriler</div>
+		<div class="title">Categories</div>
 	</div>
 
-	<?php 
+	<?php
 
-	$kategorisor=$db->prepare("SELECT * FROM kategori order by kategori_sira ASC");
+	$kategorisor = $db->prepare("SELECT * FROM kategori order by kategori_sira ASC");
 	$kategorisor->execute();
 	?>
 
 
 	<div class="categorybox">
 		<ul>
-			<?php 
-			while($kategoricek=$kategorisor->fetch(PDO::FETCH_ASSOC)) {  ?>
-				<li><a href="kategori-<?=seo($kategoricek["kategori_ad"]) ?>"><?php echo $kategoricek['kategori_ad']; ?></a></li>
+			<?php
+			while ($kategoricek = $kategorisor->fetch(PDO::FETCH_ASSOC)) {  ?>
+				<li><a href="kategori-<?= seo($kategoricek["kategori_ad"]) ?>"><?php echo $kategoricek['kategori_ad']; ?></a></li>
 
 			<?php } ?>
 
@@ -54,4 +55,5 @@
 		</ul>
 	</div>
 
-		</div><!--sidebar-->
+</div>
+<!--sidebar-->

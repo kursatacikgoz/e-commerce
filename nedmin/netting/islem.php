@@ -8,9 +8,9 @@ include '../production/fonksiyon.php';
 if (isset($_POST['kullanicikaydet'])) {
 
 
-	echo $kullanici_adsoyad = htmlspecialchars($_POST['kullanici_adsoyad']);
+	echo $kullanici_adsoyad = htmlspecialchars(strip_tags($_POST['kullanici_adsoyad']));
 	echo "<br>";
-	echo $kullanici_mail = htmlspecialchars($_POST['kullanici_mail']);
+	echo $kullanici_mail = htmlspecialchars(strip_tags($_POST['kullanici_mail']));
 	echo "<br>";
 
 	echo $kullanici_passwordone = $_POST['kullanici_passwordone'];
@@ -143,6 +143,20 @@ if (isset($_POST['sliderkaydet'])) {
 
 
 if (isset($_POST['logoduzenle'])) {
+
+	if ($_FILES['ayar_logo']['size'] > 1000000) {
+		Header("Location:../production/genel-ayar.php?durum=bigfile");
+		exit;
+	}
+
+	$acceptable_extensions = array('jpq', 'gif');
+	$ext = strtolower(substr($_FILES['ayar_logo']['name'], strpos($_FILES['ayar_logo']['name'], '.') + 1));
+
+	if (in_array($ext, $acceptable_extensions) === false) {
+		echo "not accepted extension";
+		Header("Location:../production/genel-ayar.php?durum=formatfail");
+		exit;
+	}
 
 
 
