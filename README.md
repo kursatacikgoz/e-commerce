@@ -2,31 +2,25 @@
 
 In summary, this project is the conversion of non-dynamic html templates prepared for admin and e-commerce into dynamic php codes. There are English and Turkish variable definitions in the project. https://github.com/ColorlibHQ/gentelella has been used for the admin panel. License information is added below.
 
-<h2>Home Page</h2>
+<h2>Home Page of e-commerce website</h2>
 
 ![home](https://i.hizliresim.com/XoCVsY.png)
 
+<h2>Register</h2>
 
-<img width=“10” alt=“home” src=“https://i.hizliresim.com/XoCVsY.png”>
+![register](https://i.hizliresim.com/h4qbRF.png)
 
+<h2>Cart</h2>
 
-![home]()
+![cart](https://i.hizliresim.com/o1yGAi.png)
 
-![home]()
+<h2>Admin Home</h2>
 
-![home]()
+![AdminHome](https://i.hizliresim.com/BfidQI.png)
 
-![home]()
+<h2>Listing Products</h2>
 
-![home]()
-
-![home]()
-
-![home]()
-
-![home]()
-
-
+![ListingProduct](https://i.hizliresim.com/iBfplH.png)
 
 
 
