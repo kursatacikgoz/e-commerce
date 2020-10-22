@@ -7,7 +7,7 @@ In summary, this project is the conversion of non-dynamic html templates prepare
 ![home](https://i.hizliresim.com/XoCVsY.png)
 
 
-<img width=“400” alt=“home” src=“https://i.hizliresim.com/XoCVsY.png”>
+<img width=“10” alt=“home” src=“https://i.hizliresim.com/XoCVsY.png”>
 
 
 ![home]()
