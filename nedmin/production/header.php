@@ -83,7 +83,7 @@ if ($say == 0) {
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>Admin Panel!</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -119,6 +119,7 @@ if ($say == 0) {
                   </ul>
                 </li>
                 <li><a href="hakkimizda.php"><i class="fa fa-info"></i> About us </a></li>
+                <li><a href="privacy-terms.php"><i class="fa fa-list-ol"></i> Privacy Terms </a></li>
                 <li><a href="kullanici.php"><i class="fa fa-user"></i> User Table </a></li>
                 <li><a href="urun.php"><i class="fa fa-shopping-basket"></i> Products </a></li>
                 <li><a href="menu.php"><i class="fa fa-list"></i> Menus </a></li>

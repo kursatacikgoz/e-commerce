@@ -149,7 +149,7 @@ if (isset($_POST['logoduzenle'])) {
 		exit;
 	}
 
-	$acceptable_extensions = array('jpq', 'gif');
+	$acceptable_extensions = array('jpq', 'gif', 'glb', 'png');
 	$ext = strtolower(substr($_FILES['ayar_logo']['name'], strpos($_FILES['ayar_logo']['name'], '.') + 1));
 
 	if (in_array($ext, $acceptable_extensions) === false) {
@@ -570,6 +570,34 @@ if (isset($_POST['menuduzenle'])) {
 	}
 }
 
+if (isset($_POST['privacytermsduzenle'])) {
+
+	$privacy_terms_id = $_POST['privacy_terms_id'];
+
+	$ayarkaydet = $db->prepare("UPDATE privacy_terms SET
+		privacy_terms_id=:privacy_terms_id,
+		privacy_terms_content=:privacy_terms_content,
+		privacyTerms_sira=:privacyTerms_sira,
+		privacyTerms_durum=:privacyTerms_durum
+		WHERE privacy_terms_id={$_POST['privacy_terms_id']}");
+
+	$update = $ayarkaydet->execute(array(
+		'privacy_terms_id' => $_POST['privacy_terms_id'],
+		'privacy_terms_content' => $_POST['privacy_terms_content'],
+		'privacyTerms_sira' => $_POST['privacyTerms_sira'],
+		'privacyTerms_durum' => $_POST['privacyTerms_durum']
+	));
+
+
+	if ($update) {
+
+		Header("Location:../production/privacy-terms-edit.php?privacy_terms_id=$privacy_terms_id&durum=ok");
+	} else {
+
+		Header("Location:../production/privacy-terms-edit.php?privacy_terms_id=$privacy_terms_id&durum=fail");
+	}
+}
+
 if (isset($_POST['menukaydet'])) {
 
 	$menu_seourl = seo($_POST['menu_ad']);
@@ -598,6 +626,27 @@ if (isset($_POST['menukaydet'])) {
 		header("Location:../production/menu.php?durum=ok");
 	} else {
 		header("Location:../production/menu.php?durum=fail");
+	}
+}
+
+if (isset($_POST['privacytermsave'])) {
+
+	$ayarekle = $db->prepare("INSERT into privacy_terms SET
+		privacy_terms_content=:privacy_terms_content,
+		privacyTerms_sira=:privacyTerms_sira,
+		privacyTerms_durum=:privacyTerms_durum
+		");
+
+	$insert = $ayarekle->execute(array(
+		'privacy_terms_content' => strip_tags($_POST['privacy_terms_content']),
+		'privacyTerms_sira' => $_POST['privacyTerms_sira'],
+		'privacyTerms_durum' => $_POST['privacyTerms_durum']
+	));
+
+	if ($insert) {
+		header("Location:../production/privacy-terms.php?durum=ok");
+	} else {
+		header("Location:../production/privacy-terms.php?durum=fail");
 	}
 }
 
@@ -781,6 +830,22 @@ if ($_GET['kategorisil'] == "ok") {
 	}
 }
 
+if ($_GET['privacy_termssil'] == "ok") {
+
+	$sil = $db->prepare("DELETE from privacy_terms where privacy_terms_id=:privacy_terms_id");
+	$kontrol = $sil->execute(array(
+		'privacy_terms_id' => $_GET['privacy_terms_id']
+	));
+
+	if ($kontrol) {
+
+		Header("Location:../production/privacy-terms.php?durum=ok");
+	} else {
+
+		Header("Location:../production/privacy-terms.php?durum=fail");
+	}
+}
+
 if ($_GET['urunsil'] == "ok") {
 
 	$sil = $db->prepare("DELETE from urun where urun_id=:urun_id");
@@ -883,6 +948,27 @@ if ($_GET['yorum_onay'] == "ok") {
 	} else {
 
 		Header("Location:../production/yorum.php?durum=fail");
+	}
+}
+
+if ($_GET['terms_onay'] == "ok") {
+
+
+	$duzenle = $db->prepare("UPDATE privacy_terms SET
+		privacyTerms_durum=:privacyTerms_durum
+		WHERE privacy_terms_id={$_GET['privacy_terms_id']}");
+	$update = $duzenle->execute(array(
+		'privacyTerms_durum' => $_GET['terms_one']
+	));
+
+
+
+	if ($update) {
+
+		Header("Location:../production/privacy-terms.php?durum=ok");
+	} else {
+
+		Header("Location:../production/privacy-terms.php?durum=fail");
 	}
 }
 
