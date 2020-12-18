@@ -47,7 +47,7 @@ include 'header.php';
 
 					$urun_id = $sepetcek['urun_id'];
 
-					$urunsor = $db->prepare("SELECT * FROM urun where urun_id =:id");
+					$urunsor = $db->prepare("SELECT * FROM urun u where urun_id =:id group by urun_id");
 
 					$urunsor->execute(array(
 						'id' => $urun_id
@@ -57,7 +57,7 @@ include 'header.php';
 
 					$toplam_fiyat += $uruncek['urun_fiyat'] * $uruncek['urun_adet'];
 
-				?>
+					?>
 
 					<tr>
 						<td>
@@ -67,7 +67,25 @@ include 'header.php';
 						<td><?php echo $uruncek['urun_ad']; ?></td>
 						<td><?php echo $uruncek['urun_id']; ?></td>
 						<td>
-							<form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>" class="form-control quantity"></form>
+							<form action="nedmin/netting/islem.php" method="POST">
+								<div class="form-group">
+									<label for="qty" class="col-sm-2 control-label"></label>
+									<div class="col-sm-4">
+										<form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>" class="form-control quantity" name="urun_adet"></form>
+									</div>
+									<input type="hidden" name="kullanici_id" value="<?php echo $sepetcek['kullanici_id'] ?>">
+									<input type="hidden" name="sepet_id" value="<?php echo $sepetcek['sepet_id'] ?>">
+									<input type="hidden" name="urun_id" value="<?php echo $sepetcek['urun_id'] ?>">
+									<div class="col-sm-4">
+										<button type="submit" name="updatecount" class="btn btn-default btn-red btn-sm"><span class="addchart">Update</span></button>
+									</div>
+								</div>
+							</form>
+
+
+
+
+							<!-- <form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>" class="form-control quantity"></form> -->
 						</td>
 						<td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
 						<td><?php echo $uruncek['urun_fiyat'] * $sepetcek['urun_adet']; ?> TL</td>

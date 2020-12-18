@@ -53,11 +53,8 @@
 			<div class="row">
 				<div class="col-md-9">
 					<ul class="footermenu"><!--footer nav-->
-						<li><a href="index-1.htm">Home</a></li>
-						<li><a href="cart.htm">My Cart</a></li>
-						<li><a href="checkout.htm">Checkout</a></li>
-						<li><a href="order.htm">Completed Orders</a></li>
-						<li><a href="contact.htm">Contact us</a></li>
+						<li><a href="index.php">Home</a></li>
+						<li><a href="iletisim.php">Contact us</a></li>
 					</ul><!--footer nav-->
 					<div class="f-credit">&copy;<?php echo $ayarcek['ayar_author'] ?> <a href="#"></a></div>
 					<a href=""><div class="payment visa"></div></a>

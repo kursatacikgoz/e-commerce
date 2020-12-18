@@ -886,6 +886,29 @@ if (isset($_POST['yorumkaydet'])) {
 	}
 }
 
+if (isset($_POST['updatecount'])) {
+	$duzenle = $db->prepare("UPDATE sepet SET
+		urun_adet=:urun_adet,
+		kullanici_id=:kullanici_id,
+		sepet_id=:sepet_id,
+		urun_id=:urun_id
+		WHERE sepet_id={$_POST['sepet_id']}");
+
+	if ($_POST['urun_adet']>0) {
+		$update = $duzenle->execute(array(
+			'urun_adet' => $_POST['urun_adet'],
+			'kullanici_id' => $_POST['kullanici_id'],
+			'sepet_id' => $_POST['sepet_id'],
+			'urun_id' => $_POST['urun_id']
+		));
+	}
+	
+	if ($update) {
+		Header("Location:../../sepet?durum=ok");
+	} else {
+		Header("Location:../../sepet?durum=fail");
+	}
+}
 
 if (isset($_POST['sepetekle'])) {
 

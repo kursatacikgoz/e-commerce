@@ -174,102 +174,111 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 										'durum' => 1
 									));
 									while ($menucek = $menusor->fetch(PDO::FETCH_ASSOC)) {
-									?>
+										?>
 
 
 										<li><a href="
 
 											<?php if (!empty($menucek['menu_url'])) {
 												echo $menucek['menu_url'];
-											} else {
-												echo "sayfa-" . seo($menucek['menu_ad']);
-											} ?>
+												} else {
+													echo "sayfa-" . seo($menucek['menu_ad']);
+												} ?>
 
 												"><?php echo $menucek['menu_ad']; ?></a></li>
 
 
 
-									<?php } ?>
+											<?php } ?>
 
 
 
-								</ul>
+										</ul>
+									</div>
+								</div>
+
+								<?php if (isset($_SESSION['userkullanici_mail'])) { ?>
+									<div class="col-md-2 machart">
+
+
+										<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
+
+										
+
+										<div class="popcart">
+											<table class="table table-condensed popcart-inner">
+												<tbody>
+
+													<?php
+													$kullanici_id = $kullanicicek['kullanici_id'];
+
+													$sepetsor = $db->prepare("SELECT * FROM sepet where kullanici_id =:id");
+
+													$sepetsor->execute(array(
+														'id' => $kullanici_id
+													));
+
+													while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
+
+														$urun_id = $sepetcek['urun_id'];
+
+														$urunsor = $db->prepare("SELECT * FROM urun where urun_id =:id");
+
+														$urunsor->execute(array(
+															'id' => $urun_id
+														));
+
+														$uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
+
+														$toplam_fiyat += $uruncek['urun_fiyat'] * $sepetcek['urun_adet'];
+
+														?>
+
+
+														<tr>
+															<td>
+																<a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
+															</td>
+															<td><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a><br></td>
+															<td><?php echo $sepetcek['urun_adet']; ?>X</td>
+															<td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
+															<td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
+														</tr>
+
+
+													<?php } ?>
+
+												</tbody>
+											</table>
+											<br>
+											<div class="btn-popcart">
+												<a href="sepet.php" class="btn btn-default btn-red btn-sm">Cart</a>
+											</div>
+											<div class="popcart-tot">
+												<p>
+													Total<br>
+													<span><?php echo $toplam_fiyat; ?> TL</span>
+												</p>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+
+								<?php } ?>
+
+								<?php
+
+								if (isset($_SESSION['userkullanici_mail'])) { ?>
+									<ul class="small-menu">
+										<li><a href="hesabim" class="myacc">Account Informations</a></li>
+										<li><a href="siparislerim" class="myshop">Orders</a></li>
+										<li><a href="logout" class="mycheck">Safe Exit</a></li>
+									</ul>
+								<?php } ?>
+
+
 							</div>
 						</div>
-						<div class="col-md-2 machart">
-							<button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
-							<div class="popcart">
-								<table class="table table-condensed popcart-inner">
-									<tbody>
-
-										<?php
-										$kullanici_id = $kullanicicek['kullanici_id'];
-
-										$sepetsor = $db->prepare("SELECT * FROM sepet where kullanici_id =:id");
-
-										$sepetsor->execute(array(
-											'id' => $kullanici_id
-										));
-
-										while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
-
-											$urun_id = $sepetcek['urun_id'];
-
-											$urunsor = $db->prepare("SELECT * FROM urun where urun_id =:id");
-
-											$urunsor->execute(array(
-												'id' => $urun_id
-											));
-
-											$uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
-
-											$toplam_fiyat += $uruncek['urun_fiyat'] * $sepetcek['urun_adet'];
-
-										?>
-
-
-											<tr>
-												<td>
-													<a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-												</td>
-												<td><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a><br></td>
-												<td><?php echo $sepetcek['urun_adet']; ?>X</td>
-												<td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
-												<td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-											</tr>
-
-
-										<?php } ?>
-
-									</tbody>
-								</table>
-								<br>
-								<div class="btn-popcart">
-									<a href="sepet.php" class="btn btn-default btn-red btn-sm">Cart</a>
-								</div>
-								<div class="popcart-tot">
-									<p>
-										Total<br>
-										<span><?php echo $toplam_fiyat; ?> TL</span>
-									</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-
-						<?php
-
-						if (isset($_SESSION['userkullanici_mail'])) { ?>
-							<ul class="small-menu">
-								<li><a href="hesabim" class="myacc">Account Informations</a></li>
-								<li><a href="siparislerim" class="myshop">Orders</a></li>
-								<li><a href="logout" class="mycheck">Safe Exit</a></li>
-							</ul>
-						<?php } ?>
-
-
 					</div>
 				</div>
-			</div>
-		</div>
 		<!--end main-nav -->
